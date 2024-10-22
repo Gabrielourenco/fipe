@@ -1,0 +1,233 @@
+/* CarrosList.css */
+
+/* Reset de estilos padrão */
+
+.header {
+  display: flex;
+  align-items: center; /* Alinhar itens verticalmente ao centro */
+  background-image: linear-gradient(to top, #fff 10%, #007bff 90%);
+  color: #fff;
+  padding: 15px;
+  height: 70px;
+  font-family: sans-serif;
+}
+
+
+.header img {
+  margin-left: -20px;
+  height: 200px; /* Margem à direita para separar a imagem do texto */
+  order: -1;
+  margin-top: -30px;
+ 
+}
+
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff;  /* Cor de fundo da página */
+    color: #333;  /* Cor do texto principal */
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color:#007bff;
+    background-color: #fff;  /* Cor de fundo do contêiner principal */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);  /* Sombra para o contêiner */
+    border-radius: 8px;
+    margin-top: -20px;
+  }
+  
+  h2 {
+    color: #007bff;  /* Cor do título principal */
+  }
+
+  label {
+    display: block;
+    font-size: 16px;
+    color: #007bff; /* Cor do texto do label */
+    margin-bottom: 8px;
+    letter-spacing: 0.5px; /* Espaçamento entre as letras */
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+    
+  }
+  
+  /* Estilizando o label quando hover */
+  label:hover {
+    color: #007bff; /* Cor do texto do label ao passar o mouse */
+  }
+  
+  /* Adicionando transição suave ao label */
+  label {
+    transition: color 0.3s ease;
+  }
+  select {
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 16px;
+    background-color: #fff; /* Fundo branco */
+    color: #333; /* Cor do texto do select */
+    border: 1px solid #007bff; /* Borda azul */
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none; /* Remove a borda de foco padrão */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transição suave na mudança de cor de fundo e borda */
+  }
+  
+  /* Estilizando o hover e o foco */
+  select:hover,
+  select:focus {
+    background-color: #a2c8f0; /* Cor de fundo ao passar o mouse ou focar */
+  }
+  
+  /* Estilizando opções do select */
+  select option {
+    background-color: #fff; /* Fundo branco */
+    color: #333; /* Cor do texto das opções */
+  }
+  
+  /* Estilo base para a tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 8px; /* Borda arredondada para a tabela */
+  overflow: hidden; /* Garante que as bordas arredondadas não causem problemas de renderização */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave para uma aparência moderna */
+}
+
+/* Estilizando cabeçalhos e células */
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  color:#333
+}
+
+/* Estilo do cabeçalho */
+th {
+  background-color: #007bff;
+  color: #fff;
+  position: relative;
+}
+
+/* Estilo do cabeçalho - Adicionando seta para indicar ordenação (opcional) */
+th.sortable {
+  cursor: pointer;
+}
+
+th.sortable::after {
+  content: '\25B2'; /* Triângulo para cima Unicode */
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+}
+
+th.sortable.sorted::after {
+  content: '\25BC'; /* Triângulo para baixo Unicode */
+}
+
+/* Estilizando as células - Alternância de cores (opcional) */
+tr:nth-child(even) {
+  background-color: #f9f9f9; /* Cor de fundo para linhas pares */
+}
+
+/* Hover nas linhas (opcional) */
+tr:hover {
+  background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+}
+  
+  button {
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  .combobox-container {
+    justify-content: center;
+    display: flex;
+    gap: 50px; 
+    grid-template-columns: repeat(2, 1fr); /* Espaçamento entre as comboboxes */
+  }
+
+  .combobox {
+    display: flex;          /* Alinha os itens dentro das ComboBoxes */
+  flex-direction: column;  /* Cada combobox ocupa o mesmo espaço disponível */
+  }
+
+  .result-container {
+    max-width: 1200px;
+    color:#007bff;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;  /* Cor de fundo do contêiner principal */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Sombra para o contêiner */
+    border-radius: 8px;
+    margin-top: 20px; /* Espaçamento entre o restante do conteúdo e o grid de resultados */
+  }
+
+  .conteudo {
+    max-width: 1200px;
+    color:#007bff;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;  /* Cor de fundo do contêiner principal */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Sombra para o contêiner */
+    border-radius: 8px;
+    margin-top: 200px; /* Espaçamento entre o restante do conteúdo e o grid de resultados */
+  }
+  p{
+    color:#333
+  }
+
+  .combobox-marca {
+    width: 200px; /* Tamanho desejado para a ComboBox de marcas */
+  }
+  
+  .combobox-modelo {
+    width: 250px; /* Tamanho desejado para a ComboBox de modelos */
+  }
+
+  .combobox-ano {
+    width: 250px; /* Tamanho desejado para a ComboBox de modelos */
+  }
+
+  .loading-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .loading-spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Adicione mais estilos conforme necessário */
+  
