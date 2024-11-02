@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/CarrosList.css';
 import logoImg from '../Logo.png';
+import { Autocomplete, TextField } from '@mui/material';
 
 
 const CarrosList = () => {
   const [marcas, setMarcas] = useState([]);
   const [modelos, setModelos] = useState([]);
   const [anos, setAnos] = useState([]);
-  const [marcaSelecionada, setMarcaSelecionada] = useState('');
-  const [modeloSelecionado, setModeloSelecionado] = useState('');
-  const [anoSelecionado, setAnoSelecionado] = useState('');
+  const [marcaSelecionada, setMarcaSelecionada] = useState(null);
+  const [modeloSelecionado, setModeloSelecionado] = useState(null);
+  const [anoSelecionado, setAnoSelecionado] = useState(null);
   const [resultados, setResultados] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +34,8 @@ const CarrosList = () => {
     const fetchModelos = async () => {
       if (marcaSelecionada) {
         try {
-          const response = await axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaSelecionada}/modelos`);
+    
+          const response = await axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaSelecionada.codigo}/modelos`);
           setModelos(response.data.modelos);
         } catch (error) {
           console.error('Erro ao obter dados da API de modelos', error);
@@ -49,9 +51,10 @@ const CarrosList = () => {
     const fetchAnos = async () => {
       if (modeloSelecionado) {
         try {
-          const response = await axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaSelecionada}/modelos/${modeloSelecionado}/anos`);
-
-          setAnos(response.data);
+          const response = await axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaSelecionada.codigo}/modelos/${modeloSelecionado.codigo}/anos`);
+          //32000 Diesel
+          const anosFiltrados = response.data.filter((ano) => !ano.nome.includes('32000'));
+          setAnos(anosFiltrados);
         } catch (error) {
           console.error('Erro ao obter dados da API de anos', error);
         }
@@ -66,7 +69,8 @@ const CarrosList = () => {
     const fetchResultados = async () => {
       if (marcaSelecionada && modeloSelecionado && anoSelecionado) {
         try {
-          const response = await axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaSelecionada}/modelos/${modeloSelecionado}/anos/${anoSelecionado}`);
+          console.log(anoSelecionado)
+          const response = await axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${marcaSelecionada.codigo}/modelos/${modeloSelecionado.codigo}/anos/${anoSelecionado.codigo}`);
           setResultados(response.data);
           setLoading(false);
         } catch (error) {
@@ -78,15 +82,12 @@ const CarrosList = () => {
     fetchResultados();
   }, [marcaSelecionada, modeloSelecionado, anoSelecionado]);
 
-  useEffect(() => {
-    // Log para observar resultados
-    if (resultados.length >= 0) {
 
-    }
-  }, [resultados]);
 
   const handleMarcaChange = (event) => {
+    console.log(event)
     setMarcaSelecionada(event.target.value);
+    console.log(event.target.value)
     setModeloSelecionado('');
     setAnoSelecionado('');
   };
@@ -114,42 +115,75 @@ const CarrosList = () => {
         <div className="combobox-container">
           <div className="combobox combobox-marca">
             <label htmlFor="marcas">Selecione a marca:</label>
-            <select id="marcas" onChange={handleMarcaChange} value={marcaSelecionada}>
-              <option value="">Selecione uma marca</option>
-              {marcas.map((marca) => (
-                <option key={marca.codigo} value={marca.codigo}>
-                  {marca.nome}
-                </option>
-              ))}
-            </select>
+            <Autocomplete
+              id="marcas"
+              options={marcas}
+              getOptionLabel={(option) => option.nome}
+              value={marcaSelecionada}
+              onChange={(e, value) => {
+                setMarcaSelecionada(value)
+               
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Marca" variant="outlined" />
+              )}
+              
+            />
           </div>
 
           {marcaSelecionada && (
 
             <div className="combobox combobox-modelo">
               <label htmlFor="modelos">Selecione o modelo:</label>
-              <select id="modelos" onChange={handleModeloChange} value={modeloSelecionado}>
+              <Autocomplete
+              id="modelos"
+              options={modelos}
+              getOptionLabel={(option) => option.nome}
+              value={modeloSelecionado}
+              onChange={(e, value) => {
+                setModeloSelecionado(value)
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Modelos" variant="outlined" />
+              )}
+              freeSolo
+            />
+              {/* <select id="modelos" onChange={handleModeloChange} value={modeloSelecionado}>
                 <option value="">Selecione um modelo</option>
                 {modelos.map((modelo) => (
                   <option key={modelo.codigo} value={modelo.codigo}>
                     {modelo.nome}
                   </option>
                 ))}
-              </select>
+              </select> */}
             </div>
           )}
 
           {modeloSelecionado && (
             <div className="combobox combobox-ano">
               <label htmlFor="anos">Selecione o ano:</label>
-              <select id="anos" onChange={handleAnoChange} value={anoSelecionado}>
+              <Autocomplete
+              id="anos"
+              options={anos}
+              getOptionLabel={(option) => option.nome}
+              value={anoSelecionado}
+              onChange={(e, value) => {
+                setAnoSelecionado(value)
+                setLoading(true)
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Ano" variant="outlined" />
+              )}
+              freeSolo
+            />
+              {/* <select id="anos" onChange={handleAnoChange} value={anoSelecionado}>
                 <option value="">Selecione um ano</option>
                 {anos.map((ano) => (
                   <option key={ano.codigo} value={ano.codigo}>
                     {ano.nome}
                   </option>
                 ))}
-              </select>
+              </select> */}
               {loading && (
                 <div className="loading-container">
                   <div className="loading-spinner"></div>
